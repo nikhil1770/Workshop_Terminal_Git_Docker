@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aestas Dashboard — Workshop Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Aestas Theme - Warm Sunset / Dark Earth */
+    --bg: #0d0b0a;
+    --surface: #1a1614;
+    --border: #2d2621;
+    --text: #f4ede4;
+    --muted: #8c7e73;
+    --accent: #ff8c42;   /* Sunset Orange */
+    --accent-glow: rgba(255, 140, 66, 0.2);
+    --terminal: #f0c93a;
+    --git: #ff6b4a;
+    --docker: #4ab8ff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    padding: 2rem 1.25rem 5rem;
+    line-height: 1.6;
+    background-image: radial-gradient(circle at top right, #2d1b10 0%, var(--bg) 60%);
+  }
+
+  .page { max-width: 1000px; margin: 0 auto; }
+
+  /* HEADER */
+  .header { text-align: left; margin-bottom: 3rem; }
+  .header-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 900;
+    line-height: 1;
+    color: #fff;
+  }
+
+  /* NAVIGATION */
+  .nav-scroll {
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+    scrollbar-width: none;
+  }
+  .tabs { display: flex; gap: 0.25rem; }
+  .tab {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    transition: 0.3s;
+    white-space: nowrap;
+  }
+  .tab:hover { color: var(--accent); }
+  .tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    background: linear-gradient(to top, var(--accent-glow), transparent);
+  }
+
+  /* PANELS */
+  .panel { display: none; animation: fadeIn 0.4s ease; }
+  .panel.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* CARDS & CONTENT */
+  .section-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  code {
+    font-family: 'DM Mono', monospace;
+    background: #000;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    color: var(--accent);
+    font-size: 0.9em;
+  }
+
+  .cmd-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+  }
+  .cmd-code { color: var(--accent); font-family: 'DM Mono', monospace; font-weight: 600; }
+  .cmd-desc { color: #b5ada5; text-align: right; }
+
+  /* CHECKLIST */
+  .check-item { display: flex; gap: 1rem; margin-bottom: 1rem; align-items: flex-start; }
+  .check-box { width: 1.2rem; height: 1.2rem; border: 1px solid var(--accent); border-radius: 4px; flex-shrink: 0; }
+  
+  /* MOBILE ADAPTATION */
+  @media (max-width: 600px) {
+    .cmd-row { flex-direction: column; gap: 0.2rem; }
+    .cmd-desc { text-align: left; font-size: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header class="header">
+    <div class="header-label">// Nikhil1770 // Aestas System</div>
+    <h1>Workshop Dashboard</h1>
+  </header>
+
+  <div class="nav-scroll">
+    <nav class="tabs">
+      <div class="tab active" onclick="showTab(event, 'check')">01 Checklist</div>
+      <div class="tab" onclick="showTab(event, 'crash')">02 Crash Course</div>
+      <div class="tab" onclick="showTab(event, 'terminal')">03 Terminal</div>
+      <div class="tab" onclick="showTab(event, 'git')">04 Git</div>
+      <div class="tab" onclick="showTab(event, 'docker')">05 Docker</div>
+      <div class="tab" onclick="showTab(event, 'deep')">06 Git Deep Dive</div>
+    </nav>
+  </div>
+
+  <div id="check" class="panel active">
+    <div class="section-title">Mandatory Requirements</div>
+    <div class="card">
+      <div class="check-item"><div class="check-box"></div><div><strong>Terminal Proficency:</strong> Navigation & File Creation</div></div>
+      <div class="check-item"><div class="check-box"></div><div><strong>Git Installed:</strong> <code>git --version</code></div></div>
+      <div class="check-item"><div class="check-box"></div><div><strong>GitHub Account:</strong> Active login verified</div></div>
+      <div class="check-item"><div class="check-box"></div><div><strong>Docker Desktop:</strong> Engine active & running</div></div>
+      <div class="check-item"><div class="check-box"></div><div><strong>Hardware:</strong> macOS / Windows / Linux Laptop</div></div>
+    </div>
+  </div>
+
+  <div id="crash" class="panel">
+    <div class="section-title">Day 1 & 2 Roadmap</div>
+    <div class="card">
+      <h3>Phase 1: Foundations</h3>
+      <p style="color: var(--muted); margin-bottom: 1rem;">Setup Homebrew, Shell navigation, and Local Git config.</p>
+      <code>brew install git</code><br>
+      <code>git config --global user.name "Your Name"</code>
+    </div>
+    <div class="card">
+      <h3>Phase 2: Containerization</h3>
+      <p style="color: var(--muted); margin-bottom: 1rem;">Install Docker Desktop and pull your first Linux image.</p>
+      <code>docker run hello-world</code>
+    </div>
+  </div>
+
+  <div id="terminal" class="panel">
+    <div class="section-title">Navigation Commands</div>
+    <div class="card">
+      <div class="cmd-row"><span class="cmd-code">pwd</span><span class="cmd-desc">Print current directory</span></div>
+      <div class="cmd-row"><span class="cmd-code">ls -la</span><span class="cmd-desc">List all files (including hidden)</span></div>
+      <div class="cmd-row"><span class="cmd-code">cd ..</span><span class="cmd-desc">Move up one folder</span></div>
+      <div class="cmd-row"><span class="cmd-code">mkdir [name]</span><span class="cmd-desc">Create new folder</span></div>
+    </div>
+  </div>
+
+  <div id="git" class="panel">
+    <div class="section-title">The Golden Workflow</div>
+    <div class="card">
+      <div class="cmd-row"><span class="cmd-code">git init</span><span class="cs-desc">Start a local repo</span></div>
+      <div class="cmd-row"><span class="cmd-code">git add .</span><span class="cs-desc">Stage all changes</span></div>
+      <div class="cmd-row"><span class="cmd-code">git commit -m "msg"</span><span class="cs-desc">Save snapshot</span></div>
+      <div class="cmd-row"><span class="cmd-code">git push origin main</span><span class="cs-desc">Upload to GitHub</span></div>
+    </div>
+  </div>
+
+  <div id="docker" class="panel">
+    <div class="section-title">Container Management</div>
+    <div class="card">
+      <div class="cmd-row"><span class="cmd-code">docker ps</span><span class="cmd-desc">Show running containers</span></div>
+      <div class="cmd-row"><span class="cmd-code">docker images</span><span class="cmd-desc">List downloaded blueprints</span></div>
+      <div class="cmd-row"><span class="cmd-code">docker run -it [img]</span><span class="cmd-desc">Start interactive container</span></div>
+    </div>
+  </div>
+
+  <div id="deep" class="panel">
+    <div class="section-title">Internal Architecture</div>
+    <div class="card">
+      <p>Git stores data in three areas:</p>
+      <ul style="padding: 1rem; color: var(--accent);">
+        <li><strong>Working Tree:</strong> Files you see.</li>
+        <li><strong>Staging Area:</strong> The "Index" of next commit.</li>
+        <li><strong>Repository:</strong> Permanent snapshots in .git</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showTab(event, tabId) {
+    // Hide all panels
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    // Deactivate all tabs
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    
+    // Show selected panel
+    document.getElementById(tabId).classList.add('active');
+    // Highlight selected tab
+    event.currentTarget.classList.add('active');
+  }
+</script>
+</body>
+</html>

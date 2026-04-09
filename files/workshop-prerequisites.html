@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distributed Computing Workshop — Prerequisites</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c10;
+    --surface: #111318;
+    --border: #1e2330;
+    --accent: #00e5ff;
+    --accent2: #ff4d6d;
+    --warn: #ffd166;
+    --text: #e2e8f0;
+    --muted: #64748b;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+    overflow-x: hidden;
+  }
+
+  /* Animated grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* TOP LABEL */
+  .top-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: fadeSlideDown 0.5s ease both;
+  }
+  .top-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0.4;
+  }
+
+  /* HEADER */
+  .header {
+    margin-bottom: 2.5rem;
+    animation: fadeSlideDown 0.6s 0.1s ease both;
+  }
+
+  .workshop-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 10vw, 5.5rem);
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+    color: #fff;
+    text-shadow: 0 0 60px rgba(0,229,255,0.15);
+  }
+
+  .workshop-title span {
+    color: var(--accent);
+  }
+
+  .subtitle {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ALERT BANNER */
+  .alert {
+    background: rgba(255, 77, 109, 0.08);
+    border: 1px solid rgba(255, 77, 109, 0.35);
+    border-left: 3px solid var(--accent2);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    animation: fadeSlideDown 0.6s 0.2s ease both;
+  }
+
+  .alert-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .alert-text {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #fca5a5;
+  }
+
+  .alert-text strong {
+    color: var(--accent2);
+    font-weight: 600;
+  }
+
+  /* TIME CARD */
+  .time-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    animation: fadeSlideDown 0.6s 0.25s ease both;
+  }
+
+  .time-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .time-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .time-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.95rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.25rem;
+  }
+
+  .tag {
+    background: rgba(0,229,255,0.08);
+    border: 1px solid rgba(0,229,255,0.2);
+    color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  /* SECTION HEADING */
+  .section-heading {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warn);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .section-heading::before {
+    content: '//';
+    opacity: 0.5;
+  }
+
+  /* PREREQUISITE ITEMS */
+  .prereqs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .prereq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    display: grid;
+    grid-template-columns: 2.5rem 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    transition: border-color 0.2s, background 0.2s;
+    animation: fadeSlideUp 0.5s ease both;
+  }
+
+  .prereq-item:hover {
+    border-color: rgba(0,229,255,0.25);
+    background: rgba(0,229,255,0.03);
+  }
+
+  .prereq-item:nth-child(1) { animation-delay: 0.3s; }
+  .prereq-item:nth-child(2) { animation-delay: 0.38s; }
+  .prereq-item:nth-child(3) { animation-delay: 0.46s; }
+  .prereq-item:nth-child(4) { animation-delay: 0.54s; }
+  .prereq-item:nth-child(5) { animation-delay: 0.62s; }
+
+  .prereq-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    background: rgba(0,229,255,0.07);
+    flex-shrink: 0;
+  }
+
+  .prereq-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .prereq-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #fff;
+    letter-spacing: 0.01em;
+  }
+
+  .prereq-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .prereq-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+    background: rgba(255,209,102,0.1);
+    color: var(--warn);
+    border: 1px solid rgba(255,209,102,0.25);
+    white-space: nowrap;
+    align-self: start;
+  }
+
+  /* BOTTOM NOTE */
+  .bottom-note {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.25rem 1.5rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.7;
+    animation: fadeSlideUp 0.5s 0.7s ease both;
+  }
+
+  .bottom-note a {
+    color: var(--accent);
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+  }
+
+  .bottom-note strong {
+    color: var(--text);
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 1.5rem 0;
+  }
+
+  .os-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(100,116,139,0.15);
+    border: 1px solid rgba(100,116,139,0.3);
+    border-radius: 3px;
+    padding: 0.2rem 0.6rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-top: 0.75rem;
+  }
+
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 520px) {
+    .time-card { grid-template-columns: 1fr 1fr; }
+    .prereq-item { grid-template-columns: 2rem 1fr; }
+    .prereq-status { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="top-label">Prerequisite Checklist</div>
+
+  <div class="header">
+    <div class="workshop-title">Distributed<br><span>Computing</span><br>Workshop</div>
+    <div class="subtitle">// complete all prerequisites before attending</div>
+  </div>
+
+  <div class="alert">
+    <div class="alert-icon">⚠</div>
+    <div class="alert-text">
+      <strong>Graded &amp; Mandatory.</strong> Prerequisites will be verified at the start of the session.
+      Completion counts as your <strong>first graded task</strong>. Attendance is compulsory — if you cannot attend,
+      email <strong>Ramaseshan sir</strong> in advance.
+    </div>
+  </div>
+
+  <div class="time-card">
+    <div class="time-item">
+      <span class="time-label">Day</span>
+      <span class="time-value">Friday</span>
+    </div>
+    <div class="time-item">
+      <span class="time-label">Time</span>
+      <span class="time-value">3:30 PM</span>
+    </div>
+    <div class="time-item">
+      <span class="time-label">Topics Covered</span>
+      <div class="topics">
+        <span class="tag">Git</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Kubernetes</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">Prerequisites — All Required</div>
+
+  <div class="prereqs">
+
+    <div class="prereq-item">
+      <div class="prereq-icon">💻</div>
+      <div class="prereq-content">
+        <div class="prereq-name">Command Line Proficiency</div>
+        <div class="prereq-desc">You must be able to open, navigate, and run commands in your OS's terminal or command prompt (e.g. cd, ls/dir, pwd).</div>
+        <div class="os-badge">⊞ Windows &nbsp;·&nbsp; 🍎 macOS &nbsp;·&nbsp; 🐧 Linux</div>
+      </div>
+      <div class="prereq-status">Required</div>
+    </div>
+
+    <div class="prereq-item">
+      <div class="prereq-icon">🔧</div>
+      <div class="prereq-content">
+        <div class="prereq-name">Git — Installed</div>
+        <div class="prereq-desc">Git must be installed and accessible from your terminal. Verify with: <code style="background:#1e2330;padding:1px 5px;border-radius:3px;font-size:0.78rem;color:var(--accent)">git --version</code></div>
+      </div>
+      <div class="prereq-status">Required</div>
+    </div>
+
+    <div class="prereq-item">
+      <div class="prereq-icon">🐙</div>
+      <div class="prereq-content">
+        <div class="prereq-name">GitHub Account</div>
+        <div class="prereq-desc">Create a free account at <span style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:0.78rem">github.com</span> if you don't have one. Make sure you can log in before the session.</div>
+      </div>
+      <div class="prereq-status">Required</div>
+    </div>
+
+    <div class="prereq-item">
+      <div class="prereq-icon">🐳</div>
+      <div class="prereq-content">
+        <div class="prereq-name">Docker Desktop — Running</div>
+        <div class="prereq-desc">Install Docker Desktop from <span style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:0.78rem">docker.com/get-started</span>. The Docker engine must be <strong style="color:#4ade80">actively running</strong> when you arrive. Verify with: <code style="background:#1e2330;padding:1px 5px;border-radius:3px;font-size:0.78rem;color:var(--accent)">docker ps</code></div>
+      </div>
+      <div class="prereq-status">Required</div>
+    </div>
+
+    <div class="prereq-item">
+      <div class="prereq-icon">✏️</div>
+      <div class="prereq-content">
+        <div class="prereq-name">Writing Materials</div>
+        <div class="prereq-desc">Bring a pen and paper to the session. Physical notes are expected.</div>
+      </div>
+      <div class="prereq-status">Required</div>
+    </div>
+
+  </div>
+
+  <div class="bottom-note">
+    <strong>Session is OS-agnostic</strong> — all tools above are available for Windows, macOS, and Linux.<br>
+    <div class="divider"></div>
+    Having trouble attending? Email <strong>Ramaseshan sir</strong> as early as possible.
+    Do not wait until the last minute — late notices may not be accommodated.
+  </div>
+
+</div>
+</body>
+</html>
