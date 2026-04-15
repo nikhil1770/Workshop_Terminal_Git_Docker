@@ -2,9 +2,6 @@
 
 A unified, high-performance reference dashboard for the Distributed Computing Workshop.
 
-## 🚀 Live Demo
-Your site will be live at:
-https://nikhil1770.github.io/Workshop_Terminal_Git_Docker/
 
 ## 🛠 Features
 - **Aestas Theme**: Sunset-inspired aesthetic.
